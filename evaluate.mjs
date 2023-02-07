@@ -10,10 +10,8 @@ const priority = {
 function peek(stack){
   return stack[stack.length-1]
 }
-expression = "(1+3/(2+2/(1+3)))";
-expression = "(" + expression + ")";
+
 postfixExpression="";
-console.log(expression);
 let stack = [];
 for (i = 0; i < expression.length; i++) {
   c = expression[i];
@@ -41,10 +39,6 @@ for (i = 0; i < expression.length; i++) {
     }
   }
 
-console.log(postfixExpression)
-
-
-
 // Calculation part
 
 calcStack =[];
@@ -68,5 +62,5 @@ for (i=0;i< postfixExpression.length; i++){
     calcStack.push(b/a);
   }
 }
-console.log(peek(calcStack))
+peek(calcStack)
 
