@@ -12,13 +12,9 @@ $("button").click(function () {
     expression = document.getElementById("display").innerHTML;
     result = evaluate(expression);
     document.getElementById("display").innerHTML = result;
-  } 
-    else if(a == "C") {
-      document.getElementById("display").innerHTML = "";
-    }
-  
-  
-  else {
+  } else if (a == "C") {
+    document.getElementById("display").innerHTML = "";
+  } else {
     if (l >= 25) {
       alert("Cannot enter more than this");
     } else {
@@ -42,27 +38,35 @@ function peek(stack) {
 
 function evaluate(expression) {
   expression = "(" + expression + ")";
-  postfixExpression = "";
+  postfixExpression = [];
 
   let stack = [];
   for (i = 0; i < expression.length; i++) {
     c = expression[i];
-    if (isNumber(c) != true) {
+    if (isNumber(c) != true && c!='.') {
       if (c in priority) {
         if (priority[peek(stack)] >= priority[c]) {
-          postfixExpression += stack.pop();
+          postfixExpression.push(stack.pop());
         }
         stack.push(c);
       } else if (c == ")") {
         while (peek(stack) != "(") {
-          postfixExpression += stack.pop();
+          postfixExpression.push(stack.pop());
         }
         stack.pop();
       } else {
         stack.push(c);
       }
     } else {
-      postfixExpression += c;
+      // number = c;
+      post ="";
+      while (isNumber(expression[i]) || expression[i]=='.') {
+        post = post + expression[i]
+        // number = (number * 10) + parseInt(expression[i + 1]);
+        i++;
+      }
+      i--;
+      postfixExpression.push(parseFloat(post))
     }
   }
   console.log(postfixExpression);
@@ -77,7 +81,7 @@ function evaluate(expression) {
       a = parseFloat(calcStack.pop());
       b = parseFloat(calcStack.pop());
       if (c == "+") calcStack.push(a + b);
-      if (c == "-") calcStack.push(a - b);
+      if (c == "-") calcStack.push(b - a);
       if (c == "*") calcStack.push(a * b);
       if (c == "/") calcStack.push(b / a);
     }
